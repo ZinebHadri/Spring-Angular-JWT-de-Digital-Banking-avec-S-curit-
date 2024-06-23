@@ -1,2 +1,11 @@
-package com.example.ebankbackend.dtos;public class TransferRequestDTO {
+package com.example.ebankbackend.dtos;
+
+import lombok.Data;
+
+@Data
+public class TransferRequestDTO {
+    private String accountSource;
+    private String accountDestination;
+    private double amount;
+    private String description;
 }

@@ -1,2 +1,10 @@
-package com.example.ebankbackend.dtos;public class DebitDTO {
+package com.example.ebankbackend.dtos;
+
+import lombok.Data;
+
+@Data
+public class DebitDTO {
+    private String accountId;
+    private double amount;
+    private String description;
 }

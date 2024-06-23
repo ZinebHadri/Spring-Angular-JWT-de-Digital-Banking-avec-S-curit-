@@ -197,7 +197,7 @@ return  bankAccountDTOS;
         BankAccount bankAccount=bankAccountRepository.findById(accountId).orElse(null);
         if(bankAccount == null)throw new BankAccountNotFoundException("Account not found");
 
-       Page<AccountOperation> accountOperationPage=    accountOperationRepository.findByBankAccountId(accountId, PageRequest.of(page,size));
+       Page<AccountOperation> accountOperationPage=    accountOperationRepository.findByBankAccountIdOrderByOperationDAteDesc(accountId, PageRequest.of(page,size));
        AccountHistoryDTO accountHistoryDTO=new AccountHistoryDTO();
        List<AccountOperationDTO>accountOperationDTOS= accountOperationPage.getContent().stream().map(op->dtomapper.fromaccountOperation(op)).collect(Collectors.toList());
        accountHistoryDTO.setAccountOperationDTOS(accountOperationDTOS);
@@ -207,5 +207,12 @@ return  bankAccountDTOS;
         accountHistoryDTO.setPageSize(size);
         accountHistoryDTO.setTotalPages(accountOperationPage.getTotalPages());
         return accountHistoryDTO;
+    }
+
+    @Override
+    public List<customerDTO> searchCustomers(String keyword) {
+        List<customer>customers=customerRepository.searchCustomer(keyword);
+         List<customerDTO>customerDTOS= customers.stream().map(cust->dtomapper.fromCustomer(cust)).collect(Collectors.toList());
+        return customerDTOS;
     }
 }
